@@ -1,5 +1,5 @@
 const githubReducer=(state,action)=>{
-
+console.log(action)
 switch(action.type){
     case"CLEAR_USERS":
         return {...state,users:[]}
@@ -8,6 +8,8 @@ switch(action.type){
             ...state,users:action.payload,
             loading:false
         }
+    case "GET_USER":
+        return { ...state , user:action.payload}
     case "SET_LOADING":
         return {
             ...state,

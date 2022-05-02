@@ -32,6 +32,25 @@ export const GithubProvider=({children})=>{
 
     }
 
+
+    
+    const getUser=async (text)=>{
+        setLoading();
+       
+        const response=await fetch(`${process.env.REACT_APP_GITHUB_URL}users/${text}`,{
+            Headers :{
+                Authorization:`Bearer ${process.env.REACT_APP_GITHUB_TOKEN} `}
+        } )
+
+        const items=await response.json();
+       console.log(await response.json())
+       dispatch({
+           type:"GET_USER",
+           payload: items
+       })
+
+    }
+
     const clearUsers=()=>{
         dispatch({type:"CLEAR_USERS"})
     }
@@ -42,7 +61,7 @@ export const GithubProvider=({children})=>{
   }
     return <GithubContext.Provider value={{
         users:state.users,loading:state.loading,
-        searchUsers,clearUsers
+        searchUsers,clearUsers,getUser
     }}>
         {children}
     </GithubContext.Provider>
